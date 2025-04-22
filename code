@@ -1,13 +1,10 @@
 import java.util.*;
 
-// Abstraction
 interface Votable {
     void castVote(int candidateIndex);
     void showResults();
     String getWinner();
 }
-
-// Encapsulation
 class VotingMachine implements Votable {
     private List<String> candidates;
     private Map<String, Integer> votes;
@@ -22,14 +19,14 @@ class VotingMachine implements Votable {
         if (index >= 0 && index < candidates.size()) {
             String name = candidates.get(index);
             votes.put(name, votes.get(name) + 1);
-            System.out.println("✅ Vote cast for " + name);
+            System.out.println("Vote cast for " + name);
         } else {
-            System.out.println("❌ Invalid candidate index.");
+            System.out.println("Invalid candidate index.");
         }
     }
 
     public void showResults() {
-        System.out.println("\n📊 Voting Results:");
+        System.out.println("Voting Results:");
         for (String c : candidates)
             System.out.println(c + ": " + votes.get(c));
     }
@@ -54,8 +51,6 @@ class VotingMachine implements Votable {
         return candidates;
     }
 }
-
-// Inheritance
 class User {
     int id;
     String name;
@@ -66,7 +61,6 @@ class User {
     public void vote(VotingMachine vm, int index) {}
 }
 
-// Polymorphism
 class Voter extends User {
     public Voter(int id, String name) {
         super(id, name);
@@ -88,13 +82,11 @@ class Admin extends User {
         System.out.println(vm.getWinner());
     }
 }
-
-// Main
-public class VotingSystemOOP {
+class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        List<String> candidates = Arrays.asList("Alice", "Bob", "Charlie");
+        List<String> candidates = Arrays.asList("daner Shish", "Dari palla", "Langol");
         VotingMachine vm = new VotingMachine(candidates);
         Set<Integer> votedIds = new HashSet<>();
 
@@ -105,12 +97,12 @@ public class VotingSystemOOP {
             System.out.print("\nEnter voter ID: ");
             int id = sc.nextInt();
             if (votedIds.contains(id)) {
-                System.out.println("⚠️  You have already voted.");
+                System.out.println("You have already voted.");
                 i--; continue;
             }
             votedIds.add(id);
 
-            sc.nextLine(); // clear buffer
+            sc.nextLine(); 
             System.out.print("Enter voter name: ");
             String name = sc.nextLine();
             Voter voter = new Voter(id, name);
@@ -124,16 +116,16 @@ public class VotingSystemOOP {
             int choice = sc.nextInt() - 1;
 
             if (choice < 0 || choice >= cands.size()) {
-                System.out.println("❌ Invalid input. Vote skipped.");
+                System.out.println("Invalid input. Vote skipped.");
                 continue;
             }
 
             voter.vote(vm, choice);
         }
 
-        // Admin views final result
+    
         Admin admin = new Admin(0, "Admin");
-        System.out.println("\n🔐 Admin Panel:");
+        System.out.println("Admin Panel:");
         admin.viewResults(vm);
 
         sc.close();
